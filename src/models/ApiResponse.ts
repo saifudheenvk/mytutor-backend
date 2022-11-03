@@ -1,4 +1,4 @@
-class ApiRespnse {
+export default class ApiRespnse {
     status: number | undefined;
     data: any;
     constructor(status: number, data: any){
