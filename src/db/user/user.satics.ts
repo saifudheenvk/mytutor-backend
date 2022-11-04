@@ -18,7 +18,7 @@ async function registerUser(this: IUserModel, userObj: UserRequestBody) {
 async function login(this: IUserModel, userObj: { email: string, password: string }) {
     const record: IUserDocument | null = await this.findOne({ email: userObj.email }).populate({
         path: "role",
-        populate:{
+        populate: {
             path: "attachedPolicies",
             model: 'policies'
         }
@@ -26,11 +26,11 @@ async function login(this: IUserModel, userObj: { email: string, password: strin
     if (record) {
         const validPass = await bcrypt.compare(userObj.password, record?.password);
         if (validPass) {
-            const token = jwt.sign(
-                record._id,
-                process.env.JWT_TOKEN as string
-            );
             const policies = record.role.attachedPolicies.flatMap(p => p.policies)
+            const token = jwt.sign({ userId: record._id },
+                process.env.JWT_TOKEN as string,
+                { expiresIn: "2d" }
+            );
             const response: LoginUserResponseBody = {
                 firstName: record.firstName,
                 lastName: record.lastName,

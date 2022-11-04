@@ -1,18 +1,19 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { Response, NextFunction } from "express";
+import { getUserPolicies } from '../services/user';
 
 module.exports = (policy: string) => {
-  return (req: any, res: Response, next: NextFunction) => {
+  return async (req: any, res: Response, next: NextFunction) => {
     const token = req.header("auth-token");
     if (!token) return res.status(401).send("Access Denied");
     try {
-      const options = {
-        maxAge: "2d",
-      };
-      const secret:string = process.env.JWT_TOKEN||"";
-      const verified = jwt.verify(token, secret, options);
+      const verified: any = jwt.verify(token, process.env.JWT_TOKEN as string);
+      const userId: string = verified.userId;
+      const policies = await getUserPolicies(userId);
+      if(policies.includes(policy)) next();
+      else res.status(401).send("Invalid token");
     } catch (err) {
-      res.status(400).send("Invalid token");
+      res.status(401).send("Invalid token");
     }
   };
 };
