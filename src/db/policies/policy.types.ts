@@ -8,4 +8,6 @@ export interface IPolicy{
 
 export interface IPolicyDocument extends IPolicy, Document{}
 
-export interface IPolicyModel extends Model<IPolicyDocument>{}
+export interface IPolicyModel extends Model<IPolicyDocument>{
+    createPolicy: (this:IPolicyModel, data: IPolicyDocument) => Promise<IPolicyDocument>;
+}

@@ -5,6 +5,7 @@ const cors = require('cors')
 const morgan = require("morgan");
 const userRouter = require("./routers/user")
 const roleRouter = require("./routers/role")
+const policyRouter = require("./routers/policies")
 
 const app:Application = express();
 
@@ -21,6 +22,7 @@ app.get("/", (req:Request, res:Response):void => {
   //middlewares
   app.use("/users", userRouter)
   app.use("/roles", roleRouter)
+  app.use("/policies", policyRouter)
 
   //connect with mong
 connect();

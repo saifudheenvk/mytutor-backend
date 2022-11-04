@@ -1,10 +1,8 @@
 import express from "express";
-import { createRole, updateRole } from"../../controllers/role";
+import { createRole } from"../../controllers/role";
 const router = express.Router();
 
 
-
-router.post("/create", createRole)
-router.put("/update", updateRole)
+router.put("/create", createRole)
 
 module.exports = router
