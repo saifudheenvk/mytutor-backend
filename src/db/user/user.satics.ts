@@ -16,7 +16,13 @@ async function registerUser(this: IUserModel, userObj: UserRequestBody) {
 }
 
 async function login(this: IUserModel, userObj: { email: string, password: string }) {
-    const record: IUserDocument | null = await this.findOne({ email: userObj.email });
+    const record: IUserDocument | null = await this.findOne({ email: userObj.email }).populate({
+        path: "role",
+        populate:{
+            path: "attachedPolicies",
+            model: 'policies'
+        }
+    });
     if (record) {
         const validPass = await bcrypt.compare(userObj.password, record?.password);
         if (validPass) {
@@ -24,12 +30,15 @@ async function login(this: IUserModel, userObj: { email: string, password: strin
                 record._id,
                 process.env.JWT_TOKEN as string
             );
+            const policies = record.role.attachedPolicies.flatMap(p => p.policies)
             const response: LoginUserResponseBody = {
                 firstName: record.firstName,
                 lastName: record.lastName,
                 mobileNumber: record.mobileNumber,
                 token,
-                email: record.email
+                email: record.email,
+                role: record.role._id,
+                policies: policies
             }
             return response;
         } else return "Incorrect Password.";

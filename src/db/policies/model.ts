@@ -18,7 +18,7 @@ const PolicySchema = new Mongoose.Schema<IPolicyDocument, IPolicyModel>({
 });
 
 const PolicyModel: IPolicyModel = Mongoose.model<IPolicyDocument, IPolicyModel>(
-    "users",
+    "policies",
     PolicySchema
   );
   export default PolicyModel;

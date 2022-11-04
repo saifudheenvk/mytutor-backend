@@ -1,12 +1,13 @@
 import { Document, Model } from "mongoose";
 import { LoginUserResponseBody, UserRequestBody } from "../../models/user";
+import { IRoleDocument } from "../role/role.types";
 
 export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  role: string;
+  role: string & IRoleDocument;
   mobileNumber: string;
 
 }

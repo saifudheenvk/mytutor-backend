@@ -8,12 +8,13 @@ const RoleSchema = new Mongoose.Schema<IRoleDocument, IRoleModel>({
   },
   attachedPolicies:{
     required: true,
-    type: [Number]
+    type: [Mongoose.Schema.Types.ObjectId],
+    ref: ""
   }
 });
 
 const RoleModel: IRoleModel = Mongoose.model<IRoleDocument, IRoleModel>(
-    "users",
+    "roles",
     RoleSchema
   );
   export default RoleModel;

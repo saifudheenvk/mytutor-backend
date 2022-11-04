@@ -12,5 +12,6 @@ export type LoginUserResponseBody = {
   email: string;
   mobileNumber: string;
   token: string;
-
+  policies: Array<string>;
+  role: string;
 }

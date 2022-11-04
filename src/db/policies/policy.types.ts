@@ -3,7 +3,7 @@ import { Document, Model } from "mongoose";
 export interface IPolicy{
     name: string;
     description: string;
-    policies: Array<string>;
+    policies: string[];
 }
 
 export interface IPolicyDocument extends IPolicy, Document{}

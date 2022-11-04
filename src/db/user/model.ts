@@ -17,7 +17,8 @@ const UserSchema = new Mongoose.Schema<IUserDocument, IUserModel>({
   email: String,
   role: {
     type: Mongoose.Schema.Types.ObjectId,
-    ref: "roles"
+    ref: "roles",
+    required: true
   }
 });
 

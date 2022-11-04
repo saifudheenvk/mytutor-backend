@@ -4,6 +4,7 @@ const { connect } = require("./db/database");
 const cors = require('cors')
 const morgan = require("morgan");
 const userRouter = require("./routers/user")
+const roleRouter = require("./routers/role")
 
 const app:Application = express();
 
@@ -19,6 +20,7 @@ app.get("/", (req:Request, res:Response):void => {
 
   //middlewares
   app.use("/users", userRouter)
+  app.use("/roles", roleRouter)
 
   //connect with mong
 connect();
