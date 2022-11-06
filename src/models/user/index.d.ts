@@ -1,3 +1,5 @@
+import { IPolicyDocument } from "../../db/policies/policy.types";
+
 export type UserRequestBody = {
     firstName: string;
     lastName: string;
@@ -12,6 +14,6 @@ export type LoginUserResponseBody = {
   email: string;
   mobileNumber: string;
   token: string;
-  policies: Array<string>;
+  policies: string [];
   role: string;
 }

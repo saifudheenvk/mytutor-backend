@@ -26,7 +26,7 @@ async function login(this: IUserModel, userObj: { email: string, password: strin
     if (record) {
         const validPass = await bcrypt.compare(userObj.password, record?.password);
         if (validPass) {
-            const policies = record.role.attachedPolicies.flatMap(p => p.policies)
+            const policies = record.role.attachedPolicies.flatMap(p=> p.policies)
             const token = jwt.sign({ userId: record._id },
                 process.env.JWT_TOKEN as string,
                 { expiresIn: "2d" }

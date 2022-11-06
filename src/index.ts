@@ -1,4 +1,6 @@
 import express, {Request,Response,Application} from 'express';
+import { createDefaultPolicies } from './services/policy';
+import { createDefaultRole } from './services/role';
 
 const { connect } = require("./db/database");
 const cors = require('cors')
@@ -29,4 +31,6 @@ connect();
 
 app.listen(process.env.PORT, ():void => {
     console.log('server is on port ' + process.env.PORT)
+    createDefaultPolicies();
+    createDefaultRole();
 })

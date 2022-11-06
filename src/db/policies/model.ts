@@ -6,7 +6,8 @@ import statics from "./policy.statics"
 const PolicySchema = new Mongoose.Schema<IPolicyDocument, IPolicyModel>({
   name: {
     required: true,
-    type: String
+    type: String,
+    unique: true
   },
   policies:{
     required: true,

@@ -5,8 +5,10 @@ import statics from "./role.statics"
 const RoleSchema = new Mongoose.Schema<IRoleDocument, IRoleModel>({
   name: {
     required: true,
-    type: String
+    type: String,
+    unique: true
   },
+  description: String,
   attachedPolicies:{
     required: true,
     type: [Mongoose.Schema.Types.ObjectId],
