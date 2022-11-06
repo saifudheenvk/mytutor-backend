@@ -8,11 +8,13 @@ const RoleSchema = new Mongoose.Schema<IRoleDocument, IRoleModel>({
     type: String,
     unique: true
   },
-  description: String,
+  description: {
+    type: String
+  },
   attachedPolicies:{
     required: true,
     type: [Mongoose.Schema.Types.ObjectId],
-    ref: ""
+    ref: "policies"
   }
 });
 

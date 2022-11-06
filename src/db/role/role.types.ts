@@ -3,6 +3,7 @@ import { IPolicyDocument } from "../policies/policy.types";
 
 export interface IRole{
     name: string;
+    description: string;
     attachedPolicies: IPolicyDocument[];
 }
 

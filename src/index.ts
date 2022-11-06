@@ -1,6 +1,5 @@
 import express, {Request,Response,Application} from 'express';
 import { createDefaultPolicies } from './services/policy';
-import { createDefaultRole } from './services/role';
 
 const { connect } = require("./db/database");
 const cors = require('cors')
@@ -29,8 +28,7 @@ app.get("/", (req:Request, res:Response):void => {
   //connect with mong
 connect();
 
-app.listen(process.env.PORT, ():void => {
+app.listen(process.env.PORT, async ():Promise<void> => {
     console.log('server is on port ' + process.env.PORT)
-    createDefaultPolicies();
-    createDefaultRole();
+    await createDefaultPolicies();
 })
