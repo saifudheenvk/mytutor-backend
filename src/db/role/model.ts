@@ -11,17 +11,23 @@ const RoleSchema = new Mongoose.Schema<IRoleDocument, IRoleModel>({
   description: {
     type: String
   },
-  attachedPolicies:{
+  attachedPolicies: {
     required: true,
     type: [Mongoose.Schema.Types.ObjectId],
-    ref: "policies"
+    ref: "policy"
+  },
+  type: {
+    required: true,
+    type: Number,
+    enum: [0, 1, 2],
+    default: 1
   }
 });
 
 RoleSchema.statics = statics;
 
 const RoleModel: IRoleModel = Mongoose.model<IRoleDocument, IRoleModel>(
-    "roles",
-    RoleSchema
-  );
-  export default RoleModel;
+  "role",
+  RoleSchema
+);
+export default RoleModel;

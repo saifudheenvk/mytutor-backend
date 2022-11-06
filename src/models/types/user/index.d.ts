@@ -1,4 +1,5 @@
-import { IPolicyDocument } from "../../db/policies/policy.types";
+import { IPolicyDocument } from "../../../db/policies/policy.types";
+import { RoleType } from "../../enum/role";
 
 export type UserRequestBody = {
     firstName: string;
@@ -6,6 +7,7 @@ export type UserRequestBody = {
     email: string;
     password: string;
     mobileNumber: String;
+    roleType?: RoleType
   }
 
 export type LoginUserResponseBody = {

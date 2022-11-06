@@ -14,10 +14,15 @@ const UserSchema = new Mongoose.Schema<IUserDocument, IUserModel>({
     required: true
   },
   password: String,
+  archived: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   email: String,
   role: {
     type: Mongoose.Schema.Types.ObjectId,
-    ref: "roles",
+    ref: "role",
     required: true
   }
 });
@@ -25,7 +30,7 @@ const UserSchema = new Mongoose.Schema<IUserDocument, IUserModel>({
 UserSchema.statics = statics;
 
 const UserModel: IUserModel = Mongoose.model<IUserDocument, IUserModel>(
-  "users",
+  "user",
   UserSchema
 );
 export default UserModel;

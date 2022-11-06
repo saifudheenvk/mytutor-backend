@@ -22,7 +22,7 @@ const PolicySchema = new Mongoose.Schema<IPolicyDocument, IPolicyModel>({
 PolicySchema.statics = statics;
 
 const PolicyModel: IPolicyModel = Mongoose.model<IPolicyDocument, IPolicyModel>(
-    "policies",
+    "policy",
     PolicySchema
   );
   export default PolicyModel;

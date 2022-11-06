@@ -1,16 +1,21 @@
-import { LoginUserResponseBody, UserRequestBody } from "../../models/user";
+import { LoginUserResponseBody, UserRequestBody } from "../../models/types/user";
 import { IUserDocument, IUserModel } from "./user.types";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { registerFirstCompany } from "../../services/company";
+import RoleModel from "../role/model";
 
 async function registerUser(this: IUserModel, userObj: UserRequestBody) {
     const record = await this.findOne({ "$or": [{ email: userObj.email }, { mobileNumber: userObj.mobileNumber }] });
     if (record) {
         return "already user exist with this email id or mobile number";
     } else {
+        const role = RoleModel.findOne({type: userObj.roleType})
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(userObj.password, salt);
-        const newUser = await this.create({ ...userObj, password: hash });
+        delete userObj.roleType
+        const newUser = await this.create({ ...userObj, password: hash, role });
+        await registerFirstCompany(newUser._id)
         return newUser;
     }
 }
@@ -20,7 +25,7 @@ async function login(this: IUserModel, userObj: { email: string, password: strin
         path: "role",
         populate: {
             path: "attachedPolicies",
-            model: 'policies'
+            model: 'policy'
         }
     });
     if (record) {

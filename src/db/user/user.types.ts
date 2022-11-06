@@ -1,5 +1,5 @@
 import { Document, Model } from "mongoose";
-import { LoginUserResponseBody, UserRequestBody } from "../../models/user";
+import { LoginUserResponseBody, UserRequestBody } from "../../models/types/user";
 import { IRoleDocument } from "../role/role.types";
 
 export interface IUser {
@@ -9,7 +9,7 @@ export interface IUser {
   password: string;
   role: string & IRoleDocument;
   mobileNumber: string;
-
+  archived: boolean;
 }
 
 export interface IUserDocument extends IUser, Document { }

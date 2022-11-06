@@ -1,9 +1,12 @@
 import { Document, Model } from "mongoose";
+import { RoleType } from "../../models/enum/role";
 import { IPolicyDocument } from "../policies/policy.types";
+
 
 export interface IRole{
     name: string;
     description: string;
+    type: RoleType;
     attachedPolicies: IPolicyDocument[];
 }
 
