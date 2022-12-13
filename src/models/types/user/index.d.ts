@@ -1,7 +1,7 @@
 import { IPolicyDocument } from "../../../db/policies/policy.types";
 import { RoleType } from "../../enum/role";
 
-export type UserRequestBody = {
+export interface UserRequestBody {
     firstName: string;
     lastName: string;
     email: string;
@@ -10,7 +10,7 @@ export type UserRequestBody = {
     roleType?: RoleType
   }
 
-export type LoginUserResponseBody = {
+export interface LoginUserResponseBody {
   id: string
   firstName: string;
   lastName: string;

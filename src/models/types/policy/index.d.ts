@@ -1,6 +1,6 @@
 import { PolicyType } from "../../enum/policy";
 
-export type DefaultPolicyItem = {
+export interface DefaultPolicyItem {
     name: string;
     description: string;
     policies: string[];
