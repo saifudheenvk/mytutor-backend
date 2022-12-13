@@ -11,11 +11,13 @@ export type UserRequestBody = {
   }
 
 export type LoginUserResponseBody = {
+  id: string
   firstName: string;
   lastName: string;
   email: string;
   mobileNumber: string;
-  token: string;
+  token?: string;
   policies: string [];
   role: string;
+  companyId: string
 }

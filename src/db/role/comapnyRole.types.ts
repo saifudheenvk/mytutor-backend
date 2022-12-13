@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import { Model,Document } from "mongoose";
 import { ICompanyDocument } from "../company/company.types";
 import { IUserDocument } from "../user/user.types";
 import { IRoleDocument } from "./role.types";
@@ -11,4 +11,6 @@ export interface ICompanyRole {
 
 export interface ICompanyRoleDocument extends ICompanyRole, Document{}
 
-export interface ICompanyRoleModel extends Model<ICompanyRoleDocument>{}
+export interface ICompanyRoleModel extends Model<ICompanyRoleDocument>{
+    getCompanyPolicies: (this: ICompanyRoleModel, userId:string, companyId:string)=>Promise<string[]>
+}

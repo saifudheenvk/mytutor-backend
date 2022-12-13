@@ -4,6 +4,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { registerFirstCompany } from "../../services/company";
 import RoleModel from "../role/model";
+import { ICompanyDocument } from "../company/company.types";
+import CompanyModel from "../company/model";
 
 async function registerUser(this: IUserModel, userObj: UserRequestBody) {
     const record = await this.findOne({ "$or": [{ email: userObj.email }, { mobileNumber: userObj.mobileNumber }] });
@@ -31,19 +33,22 @@ async function login(this: IUserModel, userObj: { email: string, password: strin
     if (record) {
         const validPass = await bcrypt.compare(userObj.password, record?.password);
         if (validPass) {
-            const policies = record.role.attachedPolicies.flatMap(p=> p.policies)
+            var policies = record.role.attachedPolicies.flatMap(p=> p.policies)
             const token = jwt.sign({ userId: record._id },
                 process.env.JWT_TOKEN as string,
                 { expiresIn: "2d" }
             );
+            const company:ICompanyDocument | null = await CompanyModel.findOne({user: record._id})
             const response: LoginUserResponseBody = {
+                id: record.id,
                 firstName: record.firstName,
                 lastName: record.lastName,
                 mobileNumber: record.mobileNumber,
                 token,
                 email: record.email,
                 role: record.role._id,
-                policies: policies
+                policies: policies,
+                companyId: company?.id
             }
             return response;
         } else return "Incorrect Password.";
@@ -51,4 +56,42 @@ async function login(this: IUserModel, userObj: { email: string, password: strin
 
 }
 
-export default { registerUser, login }
+async function getUser(this:IUserModel, id: string) {
+    const record: IUserDocument | null = await this.findById(id).populate({
+        path: "role",
+        populate: {
+            path: "attachedPolicies",
+            model: 'policy'
+        }
+    });
+    if(record){
+        const company:ICompanyDocument | null = await CompanyModel.findOne({user: record._id})
+        var policies = record.role.attachedPolicies.flatMap(p=> p.policies)
+        const response: LoginUserResponseBody = {
+            id: record.id,
+            firstName: record.firstName,
+            lastName: record.lastName,
+            mobileNumber: record.mobileNumber,
+            email: record.email,
+            role: record.role._id,
+            policies: policies,
+            companyId: company?.id
+        }
+        return response;
+    } else return "No user with id "+id;
+}
+
+async function getUserPolicies(this:IUserModel, id:string) {
+    const record = await this.findById(id).populate({
+        path: "role",
+        populate: {
+            path: "attachedPolicies",
+            model: 'policy'
+        }
+    })
+    if(record){
+        return record.role.attachedPolicies.flatMap(p => p.policies);
+    } else return []
+}
+
+export default { registerUser, login, getUser, getUserPolicies }

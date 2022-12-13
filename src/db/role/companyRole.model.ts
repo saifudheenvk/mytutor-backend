@@ -1,5 +1,6 @@
 import * as Mongoose from "mongoose";
 import { ICompanyRoleDocument, ICompanyRoleModel } from "./comapnyRole.types";
+import statics from "./companyRole.statics"
 
 
 const CompanyRoleSchema = new Mongoose.Schema<ICompanyRoleDocument, ICompanyRoleModel>({
@@ -19,6 +20,8 @@ const CompanyRoleSchema = new Mongoose.Schema<ICompanyRoleDocument, ICompanyRole
         required: true
       }
 });
+
+CompanyRoleSchema.statics = statics;
 
 
 const CompanyRoleModel: ICompanyRoleModel = Mongoose.model<ICompanyRoleDocument, ICompanyRoleModel>(

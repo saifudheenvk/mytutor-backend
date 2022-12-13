@@ -17,4 +17,6 @@ export interface IUserDocument extends IUser, Document { }
 export interface IUserModel extends Model<IUserDocument> {
   registerUser: (this: IUserModel, user:UserRequestBody)=>Promise<any>
   login: (this: IUserModel, user:UserRequestBody)=>Promise<LoginUserResponseBody | string>
-}
+  getUser: (this: IUserModel, id: string)=>Promise<LoginUserResponseBody | string>
+  getUserPolicies: (this: IUserModel, id: string)=>Promise<string[]>
+}  

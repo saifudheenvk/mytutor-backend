@@ -34,3 +34,17 @@ export const login = async (req: Request, res: Response) => {
         }
     }
 }
+
+export const getUser = async (req: Request, res: Response) => {
+    const userId = req.params.userId
+    if (userId) {
+        res.status(400).send(new ApiRespnse(0, "Please provide user id"));
+    } else {
+        try {
+            const data: LoginUserResponseBody | string = await UserModel.getUser(userId)
+            res.status(200).send(new ApiRespnse(1, data))
+        } catch (err) {
+            res.status(500).send(new ApiRespnse(0, err));
+        }
+    }
+}

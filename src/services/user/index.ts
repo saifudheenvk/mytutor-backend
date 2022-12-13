@@ -1,19 +1,20 @@
+import CompanyRoleModel from "../../db/role/companyRole.model";
 import UserModel from "../../db/user/model";
-import { IUserDocument } from "../../db/user/user.types";
 import { defaultUsers } from "../../resources/roles/defaultUsers";
 
 export async function checkUserPolicies(id: string, companyId:string) {
-    const record: IUserDocument | null = await UserModel.findById(id).populate({
-        path: "role",
-        populate: {
-            path: "attachedPolicies",
-            model: 'policy'
+    let policies: string[] = []
+    try {
+        if(companyId){
+            policies = await CompanyRoleModel.getCompanyPolicies(id,companyId)
+        } else{
+            policies = await UserModel.getUserPolicies(id)
         }
-    });
-    if (record) {
-        const policies = record.role.attachedPolicies.flatMap(p => p.policies);
-        return policies;
-    } else return []
+        return policies
+    } catch (error) {
+        console.log("Couldn't fetch policies")
+        return policies
+    }
 }
 
 export async function createDefaultUsers() {
