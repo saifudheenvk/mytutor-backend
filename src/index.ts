@@ -4,9 +4,7 @@ import { createDefaultPolicies } from './services/policy';
 const { connect } = require("./db/database");
 const cors = require('cors')
 const morgan = require("morgan");
-const userRouter = require("./routers/user")
-const roleRouter = require("./routers/role")
-const policyRouter = require("./routers/policies")
+const myRouter = require("./routers")
 
 const app:Application = express();
 
@@ -21,9 +19,7 @@ app.get("/", (req:Request, res:Response):void => {
   });
 
   //middlewares
-  app.use("/users", userRouter)
-  app.use("/roles", roleRouter)
-  app.use("/policies", policyRouter)
+  app.use("/api", myRouter)
 
   //connect with mong
 connect();
