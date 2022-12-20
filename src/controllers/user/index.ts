@@ -13,8 +13,10 @@ export const registerUser = async (req: Request, res: Response) => {
         res.status(400).send(new ApiRespnse(0, validated.error.details[0].message));
     } else {
         try {
-            const data: IUserDocument = await UserModel.registerUser({...req.body, roleType: RoleType.COMPANY_ADMIN})
-            res.status(200).send(new ApiRespnse(1, data))
+            const data: IUserDocument|string = await UserModel.registerUser({...req.body, roleType: RoleType.COMPANY_ADMIN})
+            if(typeof data === "string"){
+                res.status(500).send(new ApiRespnse(0, data));
+            } else res.status(200).send(new ApiRespnse(1, data))
         } catch (err) {
             res.status(500).send(new ApiRespnse(0, err));
         }
