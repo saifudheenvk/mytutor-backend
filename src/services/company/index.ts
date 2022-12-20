@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import CompanyModel from "../../db/company/model";
 import CompanyRoleModel from "../../db/role/companyRole.model";
 import RoleModel from "../../db/role/model";
-import { RoleType } from "../../models/enum/role";
+import { RoleType } from "../../models/enum/role/RoleType";
 
 export async function registerFirstCompany(userId: string) {
     try {

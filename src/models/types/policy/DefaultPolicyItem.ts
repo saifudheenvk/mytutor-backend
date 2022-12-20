@@ -1,4 +1,4 @@
-import { PolicyType } from "../../enum/policy";
+import { PolicyType } from "../../enum/policy/PolicyType";
 
 export interface DefaultPolicyItem {
     name: string;

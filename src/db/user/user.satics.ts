@@ -1,4 +1,4 @@
-import { LoginUserResponseBody, UserRequestBody } from "../../models/types/user";
+import { UserRequestBody } from "../../models/types/user/UserRequestBody";
 import { IUserDocument, IUserModel } from "./user.types";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -7,6 +7,7 @@ import { ICompanyDocument } from "../company/company.types";
 import CompanyModel from "../company/model";
 import { getRoleByUserId } from "../../services/role";
 import { IRoleDocument } from "../role/role.types";
+import { LoginUserResponseBody } from "../../models/types/user/LoginUserResponseBody";
 
 async function registerUser(this: IUserModel, userObj: UserRequestBody) {
     try {

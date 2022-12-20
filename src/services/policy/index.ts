@@ -16,7 +16,7 @@ export async function createDefaultPolicies() {
     }
 }
 
-async function getUserPolicies(userId: string) {
+export async function getUserPolicies(userId: string) {
     try {
         const role: IRoleDocument | undefined = await getRoleByUserId(userId)
         if (role) {

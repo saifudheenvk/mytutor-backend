@@ -1,5 +1,5 @@
 import { Document, Model } from "mongoose";
-import { RoleType } from "../../models/enum/role";
+import { RoleType } from "../../models/enum/role/RoleType";
 import { IPolicyDocument } from "../policies/policy.types";
 
 

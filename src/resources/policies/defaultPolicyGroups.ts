@@ -1,5 +1,5 @@
-import { PolicyType } from "../../models/enum/policy";
-import { DefaultPolicyItem } from "../../models/types/policy";
+import { PolicyType } from "../../models/enum/policy/PolicyType";
+import { DefaultPolicyItem } from "../../models/types/policy/DefaultPolicyItem";
 import { CREATE_POLICY_GRUPS, CREATE_ROLE } from "./policies";
 
 export const policyGroups: Array<DefaultPolicyItem> = [

@@ -1,5 +1,5 @@
-import { RoleType } from "../../models/enum/role";
-import { UserRequestBody } from "../../models/types/user";
+import { RoleType } from "../../models/enum/role/RoleType";
+import { UserRequestBody } from "../../models/types/user/UserRequestBody";
 
 
 export const defaultUsers: Array<UserRequestBody> = [

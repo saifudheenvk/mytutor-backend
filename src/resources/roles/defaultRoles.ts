@@ -1,4 +1,4 @@
-import { RoleType } from "../../models/enum/role";
+import { RoleType } from "../../models/enum/role/RoleType";
 
 
 
