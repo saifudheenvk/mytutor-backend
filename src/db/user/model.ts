@@ -11,6 +11,7 @@ const UserSchema = new Mongoose.Schema<IUserDocument, IUserModel>({
   lastName: String,
   mobileNumber: {
     type: String,
+    unique: true,
     required: true
   },
   password: String,
@@ -19,11 +20,10 @@ const UserSchema = new Mongoose.Schema<IUserDocument, IUserModel>({
     required: true,
     default: false
   },
-  email: String,
-  role: {
-    type: Mongoose.Schema.Types.ObjectId,
-    ref: "role",
-    required: true
+  email: {
+    type: String,
+    required: true,
+    unique: true
   }
 });
 

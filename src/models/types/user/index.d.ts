@@ -7,7 +7,6 @@ export interface UserRequestBody {
     email: string;
     password: string;
     mobileNumber: String;
-    roleType?: RoleType
   }
 
 export interface LoginUserResponseBody {

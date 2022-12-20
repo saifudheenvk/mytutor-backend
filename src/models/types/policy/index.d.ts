@@ -4,5 +4,5 @@ export interface DefaultPolicyItem {
     name: string;
     description: string;
     policies: string[];
-    type?: PolicyType
+    type: PolicyType
 }

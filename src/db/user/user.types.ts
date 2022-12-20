@@ -7,7 +7,6 @@ export interface IUser {
   lastName: string;
   email: string;
   password: string;
-  role: string & IRoleDocument;
   mobileNumber: string;
   archived: boolean;
 }
@@ -18,5 +17,4 @@ export interface IUserModel extends Model<IUserDocument> {
   registerUser: (this: IUserModel, user:UserRequestBody)=>Promise<IUserDocument | string>
   login: (this: IUserModel, user:UserRequestBody)=>Promise<LoginUserResponseBody | string>
   getUser: (this: IUserModel, id: string)=>Promise<LoginUserResponseBody | string>
-  getUserPolicies: (this: IUserModel, id: string)=>Promise<string[]>
 }  
