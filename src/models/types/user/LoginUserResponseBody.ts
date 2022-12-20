@@ -1,3 +1,5 @@
+import { UserStatus } from "../../enum/user/UserStatus";
+
 export interface LoginUserResponseBody {
     id: string
     firstName: string;
@@ -7,5 +9,6 @@ export interface LoginUserResponseBody {
     token?: string;
     policies: string [];
     role: string;
-    companyId: string
+    companyId: string;
+    status: UserStatus
   }

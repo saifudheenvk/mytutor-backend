@@ -8,6 +8,7 @@ import CompanyModel from "../company/model";
 import { getRoleByUserId } from "../../services/role";
 import { IRoleDocument } from "../role/role.types";
 import { LoginUserResponseBody } from "../../models/types/user/LoginUserResponseBody";
+import { UserStatus } from "../../models/enum/user/UserStatus";
 
 async function registerUser(this: IUserModel, userObj: UserRequestBody) {
     try {
@@ -48,7 +49,12 @@ async function login(this: IUserModel, userObj: { email: string, password: strin
                 email: record.email,
                 role: role.id,
                 policies: policies,
-                companyId: company?.id
+                companyId: company?.id,
+                status: record.status
+            }
+            if(record.status === UserStatus.DRAFTED){
+                record.status = UserStatus.CONFIRMED
+                record.save();
             }
             return response;
         } else return "Incorrect Password.";
@@ -71,7 +77,8 @@ async function getUser(this:IUserModel, id: string) {
                 email: record.email,
                 role: role.id,
                 policies: policies,
-                companyId: company?.id
+                companyId: company?.id,
+                status: record.status
             }
             return response;
         }else{

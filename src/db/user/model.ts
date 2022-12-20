@@ -9,12 +9,17 @@ const UserSchema = new Mongoose.Schema<IUserDocument, IUserModel>({
     required: true
   },
   lastName: String,
+  info: String,
+  about: String,
   mobileNumber: {
     type: String,
     unique: true,
     required: true
   },
-  password: String,
+  password: {
+    type: String,
+    required: true
+  },
   archived: {
     type: Boolean,
     required: true,
@@ -24,8 +29,14 @@ const UserSchema = new Mongoose.Schema<IUserDocument, IUserModel>({
     type: String,
     required: true,
     unique: true
+  },
+  status: {
+    required: true,
+    type: Number,
+    enum: [0, 1, 2],
+    default: 0
   }
-});
+}, { timestamps: true });
 
 UserSchema.statics = statics;
 

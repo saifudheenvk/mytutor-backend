@@ -1,6 +1,7 @@
 import { Document, Model } from "mongoose";
 import { UserRequestBody } from "../../models/types/user/UserRequestBody";
 import { LoginUserResponseBody } from "../../models/types/user/LoginUserResponseBody";
+import { UserStatus } from "../../models/enum/user/UserStatus";
 
 export interface IUser {
   firstName: string;
@@ -11,7 +12,9 @@ export interface IUser {
   archived: boolean;
   about: string;
   info: string;
-  status: string
+  status: UserStatus
+  createdAt: number;
+  updatedAt: number;
 }
 
 export interface IUserDocument extends IUser, Document { }

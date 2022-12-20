@@ -41,7 +41,7 @@ export const login = async (req: Request, res: Response) => {
 
 export const getUser = async (req: Request, res: Response) => {
     const userId = req.params.userId
-    if (userId) {
+    if (!userId) {
         res.status(200).send(new ApiRespnse(0, "Please provide user id"));
     } else {
         try {
