@@ -4,6 +4,7 @@ export interface LoginUserResponseBody {
     id: string
     firstName: string;
     lastName: string;
+    name?: string;
     email: string;
     mobileNumber: string;
     token?: string;

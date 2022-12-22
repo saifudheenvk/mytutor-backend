@@ -40,6 +40,14 @@ const UserSchema = new Mongoose.Schema<IUserDocument, IUserModel>({
 
 UserSchema.statics = statics;
 
+UserSchema.virtual('name').get(function () {
+  return `${this.firstName} ${this.lastName}`;
+}).set(function (v) {
+  const firstName = v.substring(0, v.indexOf(' '));
+  const lastName = v.substring(v.indexOf(' ') + 1);
+  this.set({ firstName, lastName });
+})
+
 const UserModel: IUserModel = Mongoose.model<IUserDocument, IUserModel>(
   "user",
   UserSchema

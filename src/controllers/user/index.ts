@@ -4,6 +4,7 @@ import { IUserDocument } from "../../db/user/user.types";
 import ApiRespnse from "../../models/ApiResponse";
 import { RoleType } from "../../models/enum/role/RoleType";
 import { LoginUserResponseBody } from "../../models/types/user/LoginUserResponseBody";
+import { ProfileResponse } from "../../models/types/user/ProfileResponse";
 import { registerValidation, loginValidation } from "./validation"
 
 
@@ -45,12 +46,41 @@ export const getUser = async (req: Request, res: Response) => {
         res.status(200).send(new ApiRespnse(0, "Please provide user id"));
     } else {
         try {
-            const data: LoginUserResponseBody | string = await UserModel.getUser(userId)
+            const data: ProfileResponse | string = await UserModel.getUser(userId)
             if (typeof data === "string") {
                 res.status(200).send(new ApiRespnse(0, data));
             } else res.status(200).send(new ApiRespnse(1, data))
         } catch (err) {
             res.status(200).send(new ApiRespnse(0, err));
         }
+    }
+}
+
+export const getMyDetails = async (req: Request, res: Response) => {
+    const userId = req.params.myId
+    if (!userId) {
+        res.status(200).send(new ApiRespnse(0, "Please provide user id "));
+    } else {
+        try {
+            const data: LoginUserResponseBody | string = await UserModel.getMyDetails(userId)
+            if (typeof data === "string") {
+                res.status(200).send(new ApiRespnse(0, data));
+            } else res.status(200).send(new ApiRespnse(1, data))
+        } catch (err) {
+            res.status(200).send(new ApiRespnse(0, err));
+        }
+    }
+}
+
+export const updateUserDetails = async (req: Request, res: Response) => {
+    try {
+        const data: string | boolean = await UserModel.updateUserDetails(req.body)
+        if (data) {
+            res.status(200).send(new ApiRespnse(1, data))
+        } else {
+            res.status(200).send(new ApiRespnse(0, "Couldn't update"))
+        }
+    } catch (err) {
+        res.status(200).send(new ApiRespnse(0, err));
     }
 }

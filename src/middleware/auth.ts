@@ -13,7 +13,7 @@ export function verifyToken (policy: string) {
       const userId: string = verified.userId;
       const policies = await checkUserPolicies(userId, companyId);
       if(policies.includes(policy)) {
-        req.params.userId = userId
+        req.params.myId = userId
         next();
       }
       else res.status(401).send("Un Authorized");
